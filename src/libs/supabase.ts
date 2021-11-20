@@ -7,3 +7,11 @@ if (!SUPABASE_URL) throw new Error("Missing env.SUPABASE_URL");
 if (!SUPABASE_KEY) throw new Error("Missing env.SUPABASE_KEY");
 
 export const client = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+export const getTitles = async () => {
+  const { data, error } = await client
+    .from("manga_title")
+    .select("*")
+    .order("title");
+  return !error && data ? data : [];
+};
